@@ -3,6 +3,9 @@ POC Sidecar
 """
 import urllib.request
 from flask import Flask, jsonify, request
+from vpn_handle import NordVPN
+
+nordvpn = NordVPN()
 
 app = Flask(__name__)
 
@@ -19,6 +22,7 @@ def my_ip():
 @app.route("/connect", methods=["GET"])
 def connect():
     if request.method == "GET":
+        nordvpn.connect()
         data = {"status": True}
         return jsonify(data)
 
@@ -26,6 +30,7 @@ def connect():
 @app.route("/rotate", methods=["GET"])
 def rotate():
     if request.method == "GET":
+        nordvpn.rotate()
         data = {"status": True}
         return jsonify(data)
 
@@ -33,6 +38,7 @@ def rotate():
 @app.route("/disconnect", methods=["GET"])
 def disconnect():
     if request.method == "GET":
+        nordvpn.disconnect()
         data = {"status": True}
         return jsonify(data)
 
